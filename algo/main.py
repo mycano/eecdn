@@ -1,6 +1,5 @@
 import math
 import time
-from tkinter.messagebox import NO
 from unittest import result
 
 import algo
@@ -17,8 +16,7 @@ import pandas as pd
 
 
 
-def exper(NUM=True, IMG=True, delay=0.1, band=2, seed=60, pred=True, acutal=False):
-    random.seed(seed)
+def exper(NUM=True, IMG=True, delay=0.1, band=2, acutal=False):
     mobile_num = 20
     relay_num = 20
     if NUM:
@@ -66,23 +64,11 @@ def exper(NUM=True, IMG=True, delay=0.1, band=2, seed=60, pred=True, acutal=Fals
     task.init_env(mobile_num, relay_num)
     ALGO = None
     use_LSTM = None
-    if pred:
-        ALGO = [True, True, True, False,
+    ALGO = [True, True, True, False,
                  True, True, True, True,
                  False] 
-        use_LSTM = [True, True, True, False, False, False, False, False, False]
-    else:
-        ALGO = [True, True, False, False,
-                 False, False, False, False,
-                 False] 
-        use_LSTM = [False, False, True, False, False, False, False, False, False]
+    use_LSTM = [True, True, True, False, False, False, False, False, False]
     ALGO_NAME = ['OTCA', 'GAF', 'DQN', 'GARR', 'LOCAL', 'CC', 'Direct', 'DF', 'RAND']
-    # ALGO label
-    ALGO_LABEL = []
-    for i in range(len(ALGO)):
-        if ALGO[i]:
-            ALGO_LABEL.append(ALGO_NAME[i])
-    print(ALGO_LABEL)
     # dynamic network throught put
     throught_put = pd.read_csv('throughput.csv')
     network_through = np.array(throught_put.iloc[:, 0])
@@ -221,4 +207,4 @@ def exper(NUM=True, IMG=True, delay=0.1, band=2, seed=60, pred=True, acutal=Fals
 
 
 if __name__ == '__main__':
-    exper(NUM=True, delay=0.2, band=5, pred=True, acutal=False)
+    exper(NUM=True, delay=0.2, band=5, acutal=False)
